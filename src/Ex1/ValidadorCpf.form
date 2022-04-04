@@ -25,6 +25,9 @@
           </grid>
         </constraints>
         <properties/>
+        <clientProperties>
+          <caretAspectRatio class="java.lang.Double" value="0.1"/>
+        </clientProperties>
       </component>
       <component id="45d65" class="javax.swing.JLabel" binding="nomeLabel">
         <constraints>
