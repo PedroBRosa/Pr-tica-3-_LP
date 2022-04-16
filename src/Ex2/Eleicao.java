@@ -1,78 +1,79 @@
 package Ex2;
 
-import org.w3c.dom.ls.LSOutput;
+import Ex1.ValidadorCpf;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Eleicao {
-    private JTextField votoTextField;
-    private JButton cancelarButton;
+public class Eleicao extends JFrame {
+    private JPanel guiEleicao;
+    private JFormattedTextField votosTextField;
     private JButton votarButton;
+    private JButton cancelarButton;
     private JButton apurarButton;
-    private int candidato1, candidato2, votoNulo, branco, eleito;
+    private int maria, pedro, nulo, branco;
 
-    public Eleicao(JTextField textField1, JButton cancelarButton, JButton votarButton, JButton apuararButton) {
-        this.votoTextField = votoTextField;
-        this.cancelarButton = cancelarButton;
-        this.votarButton = votarButton;
-        this.apurarButton = apuararButton;
+    public Eleicao() {
         votarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int menu = Integer.parseInt(votoTextField.getText().replace("0", ""));
+                int menu = Integer.parseInt(votosTextField.getText().replace("", ""));
                 switch (menu) {
                     case 1:
-                        votoNulo++;
+                        nulo++;
+                        votosTextField.setText("");
                         break;
-
                     case 2:
                         branco++;
+                        votosTextField.setText("");
                         break;
-
-                    case 20:
-                        candidato1++;
-                        break;
-
                     case 30:
-                        candidato2++;
+                        pedro++;
+                        votosTextField.setText("");
+                        break;
+                    case 20:
+                        maria++;
+                        votosTextField.setText("");
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "ENTRADA INVALIDA");
                         break;
                 }
-
             }
         });
+
 
         cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                votoTextField.setText("");
+                votosTextField.setText("");
             }
         });
-
         apurarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (apurar() == -1) {
-                    JOptionPane.showMessageDialog(null, String.format("Votos em Branco: " + branco + "/n Votos Nulos: " + votoNulo
-                            + "Votos da Maria: " + candidato1 + "Votos do Pedro: "));
+                if (pedro==maria) {
+                    JOptionPane.showMessageDialog(null, String.format("Votos em Branco: " + branco + "\nVotos Nulos: " + nulo
+                            + "\nVotos da Maria: " + maria + "\nVotos do Pedro: "+pedro+"\nEMPATE!!"));
+                }else if(pedro>maria){
+                    JOptionPane.showMessageDialog(null, String.format("Votos em Branco: " + branco + "\nVotos Nulos: " + nulo
+                            + "\nVotos da Maria: " + maria + "\nVotos do Pedro: "+pedro+"\nPEDRO ELEITO"));
+                }else{
+                    JOptionPane.showMessageDialog(null, String.format("Votos em Branco: " + branco + "\nVotos Nulos: " + nulo
+                            + "\nVotos da Maria: " + maria + "\nVotos do Pedro: "+pedro+"\nMARIA ELEITA"));
                 }
             }
         });
     }
 
-    public int apurar() {
-        if (candidato1 > candidato2) {
-            eleito = candidato1;
-        } else if (candidato1 == candidato2) {
-            eleito = -1;
-        } else {
-            eleito = candidato2;
-        }
-        return eleito;
-    }
 
+    public static void main(String[] args) {
+        Eleicao eleicao = new Eleicao();
+        eleicao.setContentPane(eleicao.guiEleicao);
+        eleicao.setTitle("ELEIÇÃO");
+        eleicao.setSize(450, 300);
+        eleicao.setVisible(true);
+        eleicao.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 }
